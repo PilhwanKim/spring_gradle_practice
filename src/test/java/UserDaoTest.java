@@ -9,21 +9,21 @@ public class UserDaoTest {
     public static void main(String[] args) throws SQLException {
         String env = "local";
 
-        ConnectionMaker connectionMaker;
+        UserDaoFactory userDaoFactory = new UserDaoFactory();
+        UserDao dao;
         if(env.equals("prd")) {
-            connectionMaker = new PrdConnectionMaker();
+            dao = userDaoFactory.getPrdUserDao();
         } else {
-            connectionMaker = new LocalConnectionMaker();
+            dao = userDaoFactory.getLocalUserDao();
         }
-        UserDao dao = new UserDao(connectionMaker);
 
         User user = new User();
-        user.setId("leon0517");
+        user.setId("leon0517-1");
         user.setName("pilhwan kim");
         user.setPassword("12345");
         dao.add(user);
 
-        User user2 = dao.get("leon0517");
+        User user2 = dao.get("leon0517-1");
         System.out.println("id:" + user2.getId());
         System.out.println("password:" + user2.getPassword());
         System.out.println("name:" + user2.getName());

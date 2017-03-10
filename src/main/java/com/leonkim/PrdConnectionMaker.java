@@ -7,8 +7,8 @@ import java.sql.SQLException;
 /**
  * Created by pilhwankim on 2017. 3. 10..
  */
-public class PrdUserDao extends UserDao{
-    Connection getConnection() throws SQLException {
+public class PrdConnectionMaker implements ConnectionMaker {
+    public Connection getConnection() throws SQLException {
         Connection con = null;
         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/spring_prd_db", "root", "");
         return con;

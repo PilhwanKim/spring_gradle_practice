@@ -1,6 +1,7 @@
 import com.leonkim.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
 
@@ -13,8 +14,11 @@ public class UserDaoTest {
         // ApplicationContext 선언
         ApplicationContext context;
 
+        // ClassPathXmlApplicationContext 생성
+        context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
         // AnnotationConfigApplicationContext 생성
-        context = new AnnotationConfigApplicationContext(UserDaoFactory.class);
+//        context = new AnnotationConfigApplicationContext(UserDaoFactory.class);
 
         String env = "local";
         UserDao dao;
@@ -25,12 +29,12 @@ public class UserDaoTest {
         }
 
         User user = new User();
-        user.setId("leon0517-6");
+        user.setId("leon0517-10");
         user.setName("pilhwan kim");
         user.setPassword("12345");
         dao.add(user);
 
-        User user2 = dao.get("leon0517-6");
+        User user2 = dao.get("leon0517-10");
         System.out.println("id:" + user2.getId());
         System.out.println("password:" + user2.getPassword());
         System.out.println("name:" + user2.getName());

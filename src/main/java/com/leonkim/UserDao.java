@@ -1,5 +1,6 @@
 package com.leonkim;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 /**
@@ -7,14 +8,14 @@ import java.sql.*;
  */
 public class UserDao {
 
-    ConnectionMaker connectionMaker;
+    private DataSource dataSource;
 
-    public UserDao(ConnectionMaker connectionMaker) {
-        this.connectionMaker = connectionMaker;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public void add(User user) throws SQLException {
-        Connection con = this.connectionMaker.getConnection();
+        Connection con = this.dataSource.getConnection();
 
         PreparedStatement ps = con.prepareStatement("insert into users(id, password, name) values(?, ?, ?)");
         ps.setString(1, user.getId());
@@ -28,7 +29,7 @@ public class UserDao {
     }
 
     public User get(String id) throws SQLException {
-        Connection con = this.connectionMaker.getConnection();
+        Connection con = this.dataSource.getConnection();
 
         PreparedStatement ps = con.prepareStatement("select * from users where id = ?");
         ps.setString(1,  id);
